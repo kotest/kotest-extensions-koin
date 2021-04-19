@@ -2,7 +2,7 @@ package com.sksamuel.kt.koin
 
 import io.kotest.core.spec.Spec
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.koin.KoinListener
+import io.kotest.koin.KoinExtension
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
@@ -13,7 +13,7 @@ import org.koin.test.mock.declareMock
 
 class KoinListenerTest : FunSpec(), KoinTest {
 
-   override fun listeners() = listOf(KoinListener(koinModule))
+   override fun listeners() = listOf(KoinExtension(koinModule))
 
    private val genericService by inject<GenericService>()
 
@@ -33,7 +33,7 @@ class KoinListenerMockTest : FunSpec(), KoinTest {
    init {
       val genericService by inject<GenericService>()
 
-      listeners(KoinListener(koinModule) { mockk<GenericRepository>() })
+      listeners(KoinExtension(koinModule) { mockk<GenericRepository>() })
 
       test("Should allow mocking correctly") {
 

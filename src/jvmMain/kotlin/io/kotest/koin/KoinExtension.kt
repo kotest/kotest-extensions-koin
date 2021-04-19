@@ -21,7 +21,9 @@ enum class KoinLifecycleMode {
    Root, Test
 }
 
-class KoinListener(
+typealias KoinListener = KoinExtension
+
+class KoinExtension(
    private val modules: List<Module>,
    private val mockProvider: Provider<*>? = null,
    private val mode: KoinLifecycleMode
