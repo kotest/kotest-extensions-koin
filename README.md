@@ -14,6 +14,12 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 
 ## Changelog
 
+### 1.1.0
+
+* Release compatible for Kotlin 1.6 and Kotest 5.0+
+* Upgraded to Koin 3.1.x
+* Koin modules are now started before any other listeners are fired.
+
 ### 1.0.0
 
 * Updated to Koin 3.0.1

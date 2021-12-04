@@ -13,11 +13,8 @@ buildscript {
 plugins {
    java
    `java-library`
-   id("java-library")
-   id("maven-publish")
-   signing
-   maven
    `maven-publish`
+   signing
    id("org.jetbrains.dokka") version Libs.dokkaVersion
    kotlin("multiplatform").version(Libs.kotlinVersion)
 }
@@ -45,7 +42,7 @@ kotlin {
          }
       }
 
-      js {
+      js(IR) {
          browser()
          nodejs()
       }
@@ -55,8 +52,8 @@ kotlin {
 
       val commonMain by getting {
          dependencies {
-            implementation(Libs.Koin.core)
             implementation(Libs.Kotest.api)
+            implementation(Libs.Koin.core)
             implementation(Libs.Koin.test) {
                exclude(group = "junit", module = "junit")
             }
@@ -76,11 +73,6 @@ kotlin {
             implementation(Libs.Mocking.mockk)
 
          }
-      }
-
-      all {
-         languageSettings.useExperimentalAnnotation("kotlin.time.ExperimentalTime")
-         languageSettings.useExperimentalAnnotation("kotlin.experimental.ExperimentalTypeInference")
       }
    }
 }

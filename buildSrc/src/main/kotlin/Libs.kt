@@ -1,18 +1,17 @@
 object Libs {
 
-   const val kotlinVersion = "1.4.31"
+   const val kotlinVersion = "1.6.0"
    const val org = "io.kotest.extensions"
    const val dokkaVersion = "0.10.1"
 
    object Kotest {
-      private const val version = "4.4.3"
-      const val assertionsShared = "io.kotest:kotest-assertions-shared:$version"
+      private const val version = "5.0.1"
       const val api = "io.kotest:kotest-framework-api:$version"
-      const val junit5 = "io.kotest:kotest-runner-junit5-jvm:$version"
+      const val junit5 = "io.kotest:kotest-runner-junit5:$version"
    }
 
    object Koin {
-      private const val version = "3.0.1"
+      private const val version = "3.1.4"
       const val core = "io.insert-koin:koin-core:$version"
       const val test = "io.insert-koin:koin-test:$version"
    }
