@@ -13,7 +13,6 @@ on:
 jobs:
    linux:
       runs-on: ubuntu-latest
-      if: github.repository == 'kotest/kotest'
       steps:
          -  name: Checkout the repo
             uses: actions/checkout@v3
@@ -47,7 +46,6 @@ jobs:
 
    macos:
       runs-on: macos-11
-      if: github.repository == 'kotest/kotest'
       steps:
          -  name: Checkout the repo
             uses: actions/checkout@v3
@@ -75,7 +73,6 @@ jobs:
 
    ios:
       runs-on: macos-11
-      if: github.repository == 'kotest/kotest'
       steps:
          -  name: Checkout the repo
             uses: actions/checkout@v3
@@ -103,7 +100,6 @@ jobs:
 
    tvos:
       runs-on: macos-11
-      if: github.repository == 'kotest/kotest'
       steps:
          -  name: Checkout the repo
             uses: actions/checkout@v3
@@ -131,7 +127,6 @@ jobs:
 
    watchos:
       runs-on: macos-11
-      if: github.repository == 'kotest/kotest'
       steps:
          -  name: Checkout the repo
             uses: actions/checkout@v3
@@ -159,7 +154,6 @@ jobs:
 
    windows:
       runs-on: windows-latest
-      if: github.repository == 'kotest/kotest'
       steps:
          -  name: Checkout the repo
             uses: actions/checkout@v3
