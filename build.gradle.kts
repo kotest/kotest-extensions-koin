@@ -47,56 +47,27 @@ kotlin {
          nodejs()
       }
 
-      targets {
-         metadata {
-            compilations.all {
-               kotlinOptions {
-                  freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
-               }
-            }
-         }
+      linuxX64()
 
-         jvm {
-            compilations.all {
-               kotlinOptions {
-                  jvmTarget = "1.8"
-                  freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
-               }
-            }
-         }
+      mingwX64()
 
-         js(IR) {
-            browser()
-            nodejs()
-            compilations.all {
-               kotlinOptions {
-                  freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
-               }
-            }
-         }
+      iosArm32()
+      iosArm64()
+      iosSimulatorArm64()
+      iosX64()
 
-         linuxX64()
+      macosArm64()
+      macosX64()
 
-         mingwX64()
+      tvosArm64()
+      tvosSimulatorArm64()
+      tvosX64()
 
-         iosArm32()
-         iosArm64()
-         iosSimulatorArm64()
-         iosX64()
-
-         macosArm64()
-         macosX64()
-
-         tvosArm64()
-         tvosSimulatorArm64()
-         tvosX64()
-
-         watchosArm32()
-         watchosArm64()
-         watchosSimulatorArm64()
-         watchosX64()
-         watchosX86()
-      }
+      watchosArm32()
+      watchosArm64()
+      watchosSimulatorArm64()
+      watchosX64()
+      watchosX86()
    }
 
    sourceSets {
@@ -113,8 +84,6 @@ kotlin {
 
       val jvmMain by getting {
          dependsOn(commonMain)
-         dependencies {
-         }
       }
 
       val jvmTest by getting {
@@ -122,7 +91,6 @@ kotlin {
          dependencies {
             implementation(Libs.Kotest.junit5)
             implementation(Libs.Mocking.mockk)
-
          }
       }
    }

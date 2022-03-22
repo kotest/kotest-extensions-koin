@@ -21,7 +21,7 @@ class KoinListenerTest : FunSpec(), KoinTest {
       }
    }
 
-   override fun afterSpec(spec: Spec) {
+   override suspend fun afterSpec(spec: Spec) {
       GlobalContext.getOrNull() shouldBe null // We should finish koin after test execution
    }
 }
