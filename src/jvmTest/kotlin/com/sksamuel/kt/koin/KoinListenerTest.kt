@@ -10,11 +10,12 @@ import org.koin.test.inject
 
 class KoinListenerTest : FunSpec(), KoinTest {
 
-   override fun extensions() = listOf(KoinExtension(koinModule))
-
    private val genericService by inject<GenericService>()
 
    init {
+
+      register(KoinExtension(koinModule))
+
       test("Should have autowired the service correctly") {
          genericService.foo() shouldBe "Bar"
       }

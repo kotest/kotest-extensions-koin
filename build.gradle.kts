@@ -46,6 +46,57 @@ kotlin {
          browser()
          nodejs()
       }
+
+      targets {
+         metadata {
+            compilations.all {
+               kotlinOptions {
+                  freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
+               }
+            }
+         }
+
+         jvm {
+            compilations.all {
+               kotlinOptions {
+                  jvmTarget = "1.8"
+                  freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
+               }
+            }
+         }
+
+         js(IR) {
+            browser()
+            nodejs()
+            compilations.all {
+               kotlinOptions {
+                  freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
+               }
+            }
+         }
+
+         linuxX64()
+
+         mingwX64()
+
+         iosArm32()
+         iosArm64()
+         iosSimulatorArm64()
+         iosX64()
+
+         macosArm64()
+         macosX64()
+
+         tvosArm64()
+         tvosSimulatorArm64()
+         tvosX64()
+
+         watchosArm32()
+         watchosArm64()
+         watchosSimulatorArm64()
+         watchosX64()
+         watchosX86()
+      }
    }
 
    sourceSets {
