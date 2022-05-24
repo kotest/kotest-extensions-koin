@@ -40,7 +40,8 @@ kotlin {
       // https://repo.maven.apache.org/maven2/io/insert-koin/koin-core-mingwx64/
 //      mingwX64()
 
-      iosArm32()
+      // iosArm32 has no klib available for koin 3.1.5
+//      iosArm32()
       iosArm64()
       iosSimulatorArm64()
       iosX64()
@@ -67,7 +68,7 @@ kotlin {
             implementation(libs.koin.core)
             // TODO: Check if we can switch to `libs.koin.test` below..
             // Seems like a bug in Gradle 7.4.2 where you can't use an exclude when using a version catalog reference
-            implementation("io.insert-koin:koin-test:3.1.6") {
+            implementation("io.insert-koin:koin-test:3.1.5") {
                exclude(group = "junit", module = "junit")
             }
          }

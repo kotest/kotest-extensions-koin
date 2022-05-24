@@ -1,10 +1,11 @@
 [versions]
-koin = "3.1.6"
+koin = "3.1.5"
 kotest = "5.2.1"
 
 [libraries]
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+# TODO: Workaround used for koin-test, see /build.gradle.kts
+# koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
 kotest-framework-api = { module = "io.kotest:kotest-framework-api", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
