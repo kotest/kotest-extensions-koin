@@ -26,7 +26,8 @@ jobs:
          -  name: Setup JDK
             uses: actions/setup-java@v3
             with:
-               java-version: '8'
+               distribution: 'zulu'
+               java-version: '11'
 
          -  name: publish multiplatform release
             run: ./gradlew publishKotlinMultiplatformPublicationToDeployRepository
