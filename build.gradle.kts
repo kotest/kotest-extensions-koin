@@ -1,22 +1,9 @@
-buildscript {
-   repositories {
-      mavenCentral()
-      maven {
-         url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-      }
-      maven {
-         url = uri("https://plugins.gradle.org/m2/")
-      }
-   }
-}
-
 plugins {
    java
    `java-library`
    `maven-publish`
    signing
-   id("org.jetbrains.dokka") version Libs.dokkaVersion
-   kotlin("multiplatform").version(Libs.kotlinVersion)
+   kotlin("multiplatform") version "1.6.10"
 }
 
 repositories {
@@ -27,7 +14,7 @@ repositories {
    }
 }
 
-group = Libs.org
+group = "io.kotest.extensions"
 version = Ci.version
 
 kotlin {
@@ -49,7 +36,9 @@ kotlin {
 
       linuxX64()
 
-      mingwX64()
+      // mingwX64 target only supported from koin 3.2.0
+      // https://repo.maven.apache.org/maven2/io/insert-koin/koin-core-mingwx64/
+//      mingwX64()
 
       iosArm32()
       iosArm64()
@@ -74,11 +63,11 @@ kotlin {
 
       val commonMain by getting {
          dependencies {
-            implementation(Libs.Kotest.api)
-            implementation(Libs.Koin.core)
-            implementation(Libs.Koin.test) {
-               exclude(group = "junit", module = "junit")
-            }
+            implementation(libs.kotest.framework.api)
+            implementation(libs.koin.core)
+//            implementation(libs.koin.test) {
+//               exclude(group = "junit", module = "junit")
+//            }
          }
       }
 
@@ -89,8 +78,8 @@ kotlin {
       val jvmTest by getting {
          dependsOn(jvmMain)
          dependencies {
-            implementation(Libs.Kotest.junit5)
-            implementation(Libs.Mocking.mockk)
+            implementation(libs.kotest.runner.junit5)
+            implementation(libs.mockk)
          }
       }
    }
