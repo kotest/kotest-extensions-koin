@@ -68,7 +68,7 @@ kotlin {
             implementation(libs.koin.core)
             // TODO: Check if we can switch to `libs.koin.test` below..
             // Seems like a bug in Gradle 7.4.2 where you can't use an exclude when using a version catalog reference
-            implementation("io.insert-koin:koin-test:3.1.5") {
+            implementation("io.insert-koin:koin-test:3.2.0") {
                exclude(group = "junit", module = "junit")
             }
          }
