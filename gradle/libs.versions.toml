@@ -1,5 +1,5 @@
 [versions]
-koin = "3.1.5"
+koin = "3.1.6"
 kotest = "5.2.1"
 
 [libraries]

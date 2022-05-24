@@ -65,9 +65,11 @@ kotlin {
          dependencies {
             implementation(libs.kotest.framework.api)
             implementation(libs.koin.core)
-//            implementation(libs.koin.test) {
-//               exclude(group = "junit", module = "junit")
-//            }
+            // TODO: Check if we can switch to `libs.koin.test` below..
+            // Seems like a bug in Gradle 7.4.2 where you can't use an exclude when using a version catalog reference
+            implementation("io.insert-koin:koin-test:3.1.6") {
+               exclude(group = "junit", module = "junit")
+            }
          }
       }
 
@@ -102,3 +104,22 @@ tasks.named<Test>("jvmTest") {
 }
 
 apply("./publish-mpp.gradle.kts")
+
+// TODO: Remove after Kotlin 1.6.20+, https://youtrack.jetbrains.com/issue/KT-49109 is fixed
+rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin> {
+   rootProject.the<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension>().nodeVersion = "16.0.0"
+}
+
+// TODO: Bug in native caching triggered on macOS
+// TODO: https://youtrack.jetbrains.com/issue/KT-44884
+configurations.matching { it.name != "kotlinCompilerPluginClasspath" }.all {
+   resolutionStrategy.eachDependency {
+      val version = requested.version
+      if (requested.group == "org.jetbrains.kotlinx" &&
+         requested.name.startsWith("kotlinx-coroutines") &&
+         version != null && !version.contains("native-mt")
+      ) {
+         useVersion("$version-native-mt")
+      }
+   }
+}
