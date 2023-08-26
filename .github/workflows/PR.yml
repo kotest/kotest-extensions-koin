@@ -12,122 +12,47 @@ permissions:
    contents: read
 
 jobs:
-   test_linux:
+   linux:
       runs-on: ubuntu-latest
       strategy:
+         fail-fast: false
          matrix:
             target:
                - jvmTest
                - jsTest
-               - linuxX64Test linuxArm64TestKlibrary
-               - :kotest-framework:kotest-framework-multiplatform-plugin-gradle:test
+               - linuxX64Test
+               - linuxArm64TestKlibrary
       steps:
-         -  name: Checkout the repo
-            uses: actions/checkout@v3
+         -  uses: kotest/kotest-action@master
             with:
-               fetch-depth: 0
-               ref: ${{ github.event.inputs.branch }}
+               gradle-command: ${{ matrix.target }}
+               java-version: 17
 
-         -  name: Setup JDK
-            uses: actions/setup-java@v3
-            with:
-               distribution: 'temurin'
-               java-version: '17'
-
-         -  uses: gradle/gradle-build-action@v2
-
-         -  name: Run tests
-            run: ./gradlew ${{ matrix.target }} --scan
-
-         -  name: Bundle the build report
-            if: failure()
-            run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
-
-         -  name: Upload the build report
-            if: failure()
-            uses: actions/upload-artifact@v3
-            with:
-               name: error-report
-               path: build-reports.zip
-
-   test_mac:
-      needs: test_linux
+   mac:
+      needs: linux
       runs-on: macos-latest
       strategy:
-         fail-fast: true
+         fail-fast: false
          matrix:
             target:
-               - macosX64Test
-               - macosArm64Test
+               - macosX64Test macosArm64Test
                - iosX64Test iosSimulatorArm64Test iosArm64TestKlibrary iosArm32TestKlibrary
-               - tvosX64Test tvosArm64TestKlibrary
-               - watchosArm32TestKlibrary watchosArm64TestKlibrary watchosX86Test watchosX64Test
-
+               - tvosX64Test tvosArm64TestKlibrary tvosSimulatorArm64Test
+               - watchosArm32TestKlibrary watchosArm64TestKlibrary watchosX86Test watchosX64Test watchosSimulatorArm64Test
       steps:
-         -  name: Checkout the repo
-            uses: actions/checkout@v3
+         -  uses: kotest/kotest-action@master
             with:
-               fetch-depth: 0
-               ref: ${{ github.event.inputs.branch }}
+               gradle-command: ${{ matrix.target }}
+               java-version: 17
 
-         -  name: Setup JDK
-            uses: actions/setup-java@v3
-            with:
-               java-version: '17'
-               distribution: 'temurin'
-
-         -  uses: gradle/gradle-build-action@v2
-
-         -  name: Run tests
-            run: ./gradlew ${{ matrix.target }} --scan
-
-         -  name: Bundle the build report
-            if: failure()
-            run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
-
-         -  name: Upload the build report
-            if: failure()
-            uses: actions/upload-artifact@v3
-            with:
-               name: error-report
-               path: build-reports.zip
-
-   test_windows:
-      needs: api_check
+   windows:
+      needs: linux
       runs-on: windows-latest
-      strategy:
-         fail-fast: true
-         matrix:
-            target:
-               - mingwX64Test
       steps:
-         -  name: Checkout the repo
-            uses: actions/checkout@v3
+         -  uses: kotest/kotest-action@master
             with:
-               fetch-depth: 0
-               ref: ${{ github.event.inputs.branch }}
-
-         -  name: Setup JDK
-            uses: actions/setup-java@v3
-            with:
-               java-version: '17'
-               distribution: 'temurin'
-
-         -  uses: gradle/gradle-build-action@v2
-
-         -  name: Run tests
-            run: ./gradlew ${{ matrix.target }} --scan
-
-         -  name: Bundle the build report
-            if: failure()
-            run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
-
-         -  name: Upload the build report
-            if: failure()
-            uses: actions/upload-artifact@v3
-            with:
-               name: error-report
-               path: build-reports.zip
+               gradle-command: mingwX64Test
+               java-version: 17
 
 env:
    GRADLE_OPTS: -Dorg.gradle.configureondemand=false -Dorg.gradle.parallel=false -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxMetaspaceSize=756m -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
