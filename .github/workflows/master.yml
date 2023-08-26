@@ -34,7 +34,6 @@ jobs:
    mac:
       needs: linux
       runs-on: macos-latest
-      if: github.repository == 'kotest/kotest'
       strategy:
          fail-fast: false
          matrix:
