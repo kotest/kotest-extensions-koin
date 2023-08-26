@@ -41,8 +41,9 @@ jobs:
                name: error-report
                path: build-reports.zip
 
-   mac_:
-      runs-on: macos-11
+   mac:
+      needs: linux
+      runs-on: macos-latest
       strategy:
          matrix:
             target:
@@ -88,6 +89,7 @@ jobs:
                path: build-reports.zip
 
    windows:
+      needs: mac
       runs-on: windows-latest
       steps:
          -  name: Checkout the repo
