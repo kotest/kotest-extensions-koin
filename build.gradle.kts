@@ -3,7 +3,7 @@ plugins {
    `java-library`
    `maven-publish`
    signing
-   kotlin("multiplatform") version "1.6.21"
+   kotlin("multiplatform") version "1.8.21"
 }
 
 repositories {
@@ -35,13 +35,9 @@ kotlin {
       }
 
       linuxX64()
+      mingwX64()
 
-      // mingwX64 target only supported from koin 3.2.0
-      // https://repo.maven.apache.org/maven2/io/insert-koin/koin-core-mingwx64/
-//      mingwX64()
-
-      // iosArm32 has no klib available for koin 3.1.5
-//      iosArm32()
+      iosArm32()
       iosArm64()
       iosSimulatorArm64()
       iosX64()
@@ -67,8 +63,8 @@ kotlin {
             implementation(libs.kotest.framework.api)
             implementation(libs.koin.core)
             // TODO: Check if we can switch to `libs.koin.test` below..
-            // Seems like a bug in Gradle 7.4.2 where you can't use an exclude when using a version catalog reference
-            implementation("io.insert-koin:koin-test:3.2.2") {
+            // Seems like a bug in Gradle where you can't use an exclude when using a version catalog reference
+            implementation("io.insert-koin:koin-test:3.4.3") {
                exclude(group = "junit", module = "junit")
             }
          }
@@ -105,22 +101,3 @@ tasks.named<Test>("jvmTest") {
 }
 
 apply("./publish-mpp.gradle.kts")
-
-// TODO: Remove after Kotlin 1.6.20+, https://youtrack.jetbrains.com/issue/KT-49109 is fixed
-rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin> {
-   rootProject.the<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension>().nodeVersion = "16.0.0"
-}
-
-// TODO: Bug in native caching triggered on macOS
-// TODO: https://youtrack.jetbrains.com/issue/KT-44884
-configurations.matching { it.name != "kotlinCompilerPluginClasspath" }.all {
-   resolutionStrategy.eachDependency {
-      val version = requested.version
-      if (requested.group == "org.jetbrains.kotlinx" &&
-         requested.name.startsWith("kotlinx-coroutines") &&
-         version != null && !version.contains("native-mt")
-      ) {
-         useVersion("$version-native-mt")
-      }
-   }
-}
