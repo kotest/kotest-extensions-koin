@@ -7,44 +7,36 @@ on:
          - 'documentation/**'
          - '*.md'
          - '*.yml'
+         - '.github/workflows/**'
       branches:
          - master
+
+permissions:
+   contents: read
 
 jobs:
    linux:
       runs-on: ubuntu-latest
+      strategy:
+         fail-fast: false
+         matrix:
+            target:
+               - jvmTest publishJvmPublicationToDeployRepository publishKotlinMultiplatformPublicationToDeployRepository publishKotestBomPublicationToDeployRepository
+               - jsTest publishJsPublicationToDeployRepository
+               - linuxX64Test publishLinuxX64PublicationToDeployRepository
+               - linuxArm64TestKlibrary publishLinuxArm64PublicationToDeployRepository
       steps:
-         -  name: Checkout the repo
-            uses: actions/checkout@v3
+         -  uses: kotest/kotest-action@master
             with:
-               fetch-depth: 0
-
-         -  name: Setup JDK
-            uses: actions/setup-java@v3
-            with:
-               distribution: 'zulu'
-               java-version: '11'
-
-         -  uses: gradle/gradle-build-action@v2
-
-         -  name: Run tests
-            run: ./gradlew check publish --scan
-
-         -  name: Bundle the build report
-            if: failure()
-            run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
-
-         -  name: Upload the build report
-            if: failure()
-            uses: actions/upload-artifact@v3
-            with:
-               name: error-report
-               path: build-reports.zip
+               gradle-command: ${{ matrix.target }}
+               java-version: 17
 
    mac:
       needs: linux
       runs-on: macos-latest
+      if: github.repository == 'kotest/kotest'
       strategy:
+         fail-fast: false
          matrix:
             target:
                - macosX64Test publishMacosX64PublicationToDeployRepository
@@ -59,62 +51,23 @@ jobs:
                - watchosArm64TestKlibrary publishWatchosArm64PublicationToDeployRepository
                - watchosX86Test publishWatchosX86PublicationToDeployRepository
                - watchosX64Test publishWatchosX64PublicationToDeployRepository
-
+               - watchosSimulatorArm64Test publishWatchosSimulatorArm64PublicationToDeployRepository
+               - tvosSimulatorArm64Test publishTvosSimulatorArm64PublicationToDeployRepository
       steps:
-         -  name: Checkout the repo
-            uses: actions/checkout@v3
+         -  uses: kotest/kotest-action@master
             with:
-               fetch-depth: 0
-
-         -  name: Setup JDK
-            uses: actions/setup-java@v3
-            with:
-               distribution: 'zulu'
-               java-version: '8'
-
-         -  uses: gradle/gradle-build-action@v2
-
-         -  name: Run tests
-            run: ./gradlew ${{ matrix.target }} --scan
-
-         -  name: Bundle the build report
-            if: failure()
-            run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
-
-         -  name: Upload the build report
-            if: failure()
-            uses: actions/upload-artifact@v3
-            with:
-               name: error-report
-               path: build-reports.zip
+               gradle-command: ${{ matrix.target }}
+               java-version: 17
 
    windows:
-      needs: mac
+      needs: linux
       runs-on: windows-latest
       steps:
-         -  name: Checkout the repo
-            uses: actions/checkout@v3
+         -  uses: kotest/kotest-action@master
             with:
-               fetch-depth: 0
-
-         -  uses: gradle/gradle-build-action@v2
-
-         -  name: Run tests and publish
-            run: ./gradlew mingwX64Test publishMingwX64PublicationToDeployRepository --scan
-
-         -  name: Bundle the build report
-            if: failure()
-            run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
-
-         -  name: Upload the build report
-            if: failure()
-            uses: actions/upload-artifact@v3
-            with:
-               name: error-report
-               path: build-reports.zip
-
+               gradle-command: "mingwX64Test publishMingwX64PublicationToDeployRepository"
+               java-version: 17
 
 env:
-   GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=false -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
    OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
    OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
