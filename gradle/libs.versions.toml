@@ -9,4 +9,4 @@ koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 kotest-framework-api = { module = "io.kotest:kotest-framework-api", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 
-mockk = { module = "io.mockk:mockk", version = "1.12.5" }
+mockk = { module = "io.mockk:mockk", version = "1.13.7" }
