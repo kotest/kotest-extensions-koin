@@ -42,7 +42,25 @@ jobs:
 
    macos:
       runs-on: macos-latest
-
+      strategy:
+         fail-fast: true
+         max-parallel: 1
+         matrix:
+            target:
+               - "publishMacosX64PublicationToDeployRepository"
+               - "publishMacosArm64PublicationToDeployRepository"
+               - "publishIosArm32PublicationToDeployRepository"
+               - "publishIosArm64PublicationToDeployRepository"
+               - "publishIosX64PublicationToDeployRepository"
+               - "publishTvosArm64PublicationToDeployRepository"
+               - "publishTvosX64PublicationToDeployRepository"
+               - "publishTvosSimulatorArm64PublicationToDeployRepository"
+               - "publishWatchosArm32PublicationToDeployRepository"
+               - "publishIosSimulatorArm64PublicationToDeployRepository"
+               - "publishWatchosArm64PublicationToDeployRepository"
+               - "publishWatchosX64PublicationToDeployRepository"
+               - "publishWatchosX86PublicationToDeployRepository"
+               - "publishWatchosSimulatorArm64PublicationToDeployRepository"
       steps:
          -  name: Checkout the repo
             uses: actions/checkout@v3
@@ -57,10 +75,7 @@ jobs:
                distribution: 'temurin'
 
          -  name: deploy to sonatype
-            run: |
-               ./gradlew publishMacosX64PublicationToDeployRepository publishMacosArm64PublicationToDeployRepository publishIosArm32PublicationToDeployRepository publishIosArm64PublicationToDeployRepository publishIosX64PublicationToDeployRepository \
-               publishTvosArm64PublicationToDeployRepository publishTvosX64PublicationToDeployRepository publishTvosSimulatorArm64PublicationToDeployRepository publishWatchosArm32PublicationToDeployRepository publishIosSimulatorArm64PublicationToDeployRepository \
-               publishWatchosArm64PublicationToDeployRepository publishWatchosX64PublicationToDeployRepository publishWatchosX86PublicationToDeployRepository publishWatchosSimulatorArm64PublicationToDeployRepository
+            run: ./gradlew ${{ matrix.target }}
 
    windows:
       runs-on: windows-latest
