@@ -21,7 +21,7 @@ jobs:
          fail-fast: false
          matrix:
             target:
-               - jvmTest publishJvmPublicationToDeployRepository publishKotlinMultiplatformPublicationToDeployRepository publishKotestBomPublicationToDeployRepository
+               - jvmTest publishJvmPublicationToDeployRepository publishKotlinMultiplatformPublicationToDeployRepository
                - jsTest publishJsPublicationToDeployRepository
                - linuxX64Test publishLinuxX64PublicationToDeployRepository
                - linuxArm64TestKlibrary publishLinuxArm64PublicationToDeployRepository
