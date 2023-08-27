@@ -11,35 +11,70 @@ on:
             required: true
             default: 'master'
 
-jobs:
-
-   publish_linux_and_common:
-      runs-on: ubuntu-latest
-
-      steps:
-         -  name: Checkout the repo
-            uses: actions/checkout@v3
-            with:
-               fetch-depth: 0
-               ref: ${{ github.event.inputs.branch }}
-
-         -  name: Setup JDK
-            uses: actions/setup-java@v3
-            with:
-               distribution: 'zulu'
-               java-version: '11'
-
-         -  name: publish multiplatform release
-            run: ./gradlew publishKotlinMultiplatformPublicationToDeployRepository
-
-         -  name: publish jvm release
-            run: ./gradlew publishJvmPublicationToDeployRepository
-
-         -  name: publish js release
-            run: ./gradlew publishJsPublicationToDeployRepository
 
 env:
    GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=false -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
    RELEASE_VERSION: ${{ github.event.inputs.version }}
    OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
    OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+
+jobs:
+   linux:
+      runs-on: ubuntu-latest
+
+      steps:
+         - name: Checkout the repo
+           uses: actions/checkout@v3
+           with:
+              fetch-depth: 0
+              ref: ${{ github.event.inputs.branch }}
+
+         - name: Setup JDK
+           uses: actions/setup-java@v3
+           with:
+              java-version: '8'
+              distribution: 'temurin'
+
+         - name: deploy to sonatype
+           run: ./gradlew publish
+
+   macos:
+      runs-on: macos-latest
+
+      steps:
+         - name: Checkout the repo
+           uses: actions/checkout@v3
+           with:
+              fetch-depth: 0
+              ref: ${{ github.event.inputs.branch }}
+
+         - name: Setup JDK
+           uses: actions/setup-java@v3
+           with:
+              java-version: '8'
+              distribution: 'temurin'
+
+         - name: deploy to sonatype
+           run: |
+              ./gradlew publishMacosX64PublicationToDeployRepository publishMacosArm64PublicationToDeployRepository publishIosArm32PublicationToDeployRepository publishIosArm64PublicationToDeployRepository publishIosX64PublicationToDeployRepository \
+              publishTvosArm64PublicationToDeployRepository publishTvosX64PublicationToDeployRepository publishTvosSimulatorArm64PublicationToDeployRepository publishWatchosArm32PublicationToDeployRepository publishIosSimulatorArm64PublicationToDeployRepository \
+              publishWatchosArm64PublicationToDeployRepository publishWatchosX64PublicationToDeployRepository publishWatchosX86PublicationToDeployRepository publishWatchosSimulatorArm64PublicationToDeployRepository
+
+   windows:
+      runs-on: windows-latest
+
+      steps:
+         - name: Checkout the repo
+           uses: actions/checkout@v3
+           with:
+              fetch-depth: 0
+              ref: ${{ github.event.inputs.branch }}
+
+         - name: Setup JDK
+           uses: actions/setup-java@v3
+           with:
+              java-version: '8'
+              distribution: 'temurin'
+
+         - name: deploy to sonatype
+           run: ./gradlew publishMingwX64PublicationToDeployRepository
