@@ -7,7 +7,6 @@ on:
          - 'documentation/**'
          - '*.md'
          - '*.yml'
-         - '.github/workflows/**'
       branches:
          - master
 
