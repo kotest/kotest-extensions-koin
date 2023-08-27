@@ -24,7 +24,6 @@ jobs:
                - jvmTest publishJvmPublicationToDeployRepository publishKotlinMultiplatformPublicationToDeployRepository
                - jsTest publishJsPublicationToDeployRepository
                - linuxX64Test publishLinuxX64PublicationToDeployRepository
-               - linuxArm64TestKlibrary publishLinuxArm64PublicationToDeployRepository
       steps:
          -  uses: kotest/kotest-action@master
             with:
