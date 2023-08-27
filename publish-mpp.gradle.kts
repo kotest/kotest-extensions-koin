@@ -4,7 +4,6 @@ apply(plugin = "java-library")
 apply(from = "$rootDir/signing-pom-details.gradle.kts")
 
 
-//val dokka = tasks.named("dokka")
 val javadoc = tasks.named("javadoc")
 
 val javadocJar by tasks.creating(Jar::class) {

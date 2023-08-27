@@ -25,58 +25,58 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-         - name: Checkout the repo
-           uses: actions/checkout@v3
-           with:
-              fetch-depth: 0
-              ref: ${{ github.event.inputs.branch }}
+         -  name: Checkout the repo
+            uses: actions/checkout@v3
+            with:
+               fetch-depth: 0
+               ref: ${{ github.event.inputs.branch }}
 
-         - name: Setup JDK
-           uses: actions/setup-java@v3
-           with:
-              java-version: '11'
-              distribution: 'temurin'
+         -  name: Setup JDK
+            uses: actions/setup-java@v3
+            with:
+               java-version: '11'
+               distribution: 'temurin'
 
-         - name: deploy to sonatype
-           run: ./gradlew publish
+         -  name: deploy to sonatype
+            run: ./gradlew publish
 
    macos:
       runs-on: macos-latest
 
       steps:
-         - name: Checkout the repo
-           uses: actions/checkout@v3
-           with:
-              fetch-depth: 0
-              ref: ${{ github.event.inputs.branch }}
+         -  name: Checkout the repo
+            uses: actions/checkout@v3
+            with:
+               fetch-depth: 0
+               ref: ${{ github.event.inputs.branch }}
 
-         - name: Setup JDK
-           uses: actions/setup-java@v3
-           with:
-              java-version: '11'
-              distribution: 'temurin'
+         -  name: Setup JDK
+            uses: actions/setup-java@v3
+            with:
+               java-version: '11'
+               distribution: 'temurin'
 
-         - name: deploy to sonatype
-           run: |
-              ./gradlew publishMacosX64PublicationToDeployRepository publishMacosArm64PublicationToDeployRepository publishIosArm32PublicationToDeployRepository publishIosArm64PublicationToDeployRepository publishIosX64PublicationToDeployRepository \
-              publishTvosArm64PublicationToDeployRepository publishTvosX64PublicationToDeployRepository publishTvosSimulatorArm64PublicationToDeployRepository publishWatchosArm32PublicationToDeployRepository publishIosSimulatorArm64PublicationToDeployRepository \
-              publishWatchosArm64PublicationToDeployRepository publishWatchosX64PublicationToDeployRepository publishWatchosX86PublicationToDeployRepository publishWatchosSimulatorArm64PublicationToDeployRepository
+         -  name: deploy to sonatype
+            run: |
+               ./gradlew publishMacosX64PublicationToDeployRepository publishMacosArm64PublicationToDeployRepository publishIosArm32PublicationToDeployRepository publishIosArm64PublicationToDeployRepository publishIosX64PublicationToDeployRepository \
+               publishTvosArm64PublicationToDeployRepository publishTvosX64PublicationToDeployRepository publishTvosSimulatorArm64PublicationToDeployRepository publishWatchosArm32PublicationToDeployRepository publishIosSimulatorArm64PublicationToDeployRepository \
+               publishWatchosArm64PublicationToDeployRepository publishWatchosX64PublicationToDeployRepository publishWatchosX86PublicationToDeployRepository publishWatchosSimulatorArm64PublicationToDeployRepository
 
    windows:
       runs-on: windows-latest
 
       steps:
-         - name: Checkout the repo
-           uses: actions/checkout@v3
-           with:
-              fetch-depth: 0
-              ref: ${{ github.event.inputs.branch }}
+         -  name: Checkout the repo
+            uses: actions/checkout@v3
+            with:
+               fetch-depth: 0
+               ref: ${{ github.event.inputs.branch }}
 
-         - name: Setup JDK
-           uses: actions/setup-java@v3
-           with:
-              java-version: '11'
-              distribution: 'temurin'
+         -  name: Setup JDK
+            uses: actions/setup-java@v3
+            with:
+               java-version: '11'
+               distribution: 'temurin'
 
-         - name: deploy to sonatype
-           run: ./gradlew publishMingwX64PublicationToDeployRepository
+         -  name: deploy to sonatype
+            run: ./gradlew publishMingwX64PublicationToDeployRepository
