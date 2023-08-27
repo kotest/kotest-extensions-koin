@@ -14,6 +14,12 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 
 ## Changelog
 
+### 1.2.0
+
+* Release for Kotlin 1.8.x and Kotest 5.6+
+* Updated to Koin 3.4.x
+* Added ios build.
+
 ### 1.1.0
 
 * Release compatible for Kotlin 1.6 and Kotest 5.0+
