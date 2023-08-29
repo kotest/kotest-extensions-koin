@@ -6,7 +6,7 @@ See [docs](https://kotest.io/docs/extensions/koin.html).
 
 Please create issues on the main kotest [board](https://github.com/kotest/kotest/issues).
 
-[![Build Status](https://github.com/kotest/kotest-extensions-koin/workflows/master/badge.svg)](https://github.com/kotest/kotest-extensions-koin/actions)
+[![master](https://github.com/kotest/kotest-extensions-koin/actions/workflows/master.yml/badge.svg)](https://github.com/kotest/kotest-extensions-koin/actions/workflows/master.yml)
 [<img src="https://img.shields.io/maven-central/v/io.kotest.extensions/kotest-extensions-koin.svg?label=latest%20release"/>](http://search.maven.org/#search|ga|1|kotest-extensions-koin)
 ![GitHub](https://img.shields.io/github/license/kotest/kotest-extensions-koin)
 [![kotest @ kotlinlang.slack.com](https://img.shields.io/static/v1?label=kotlinlang&message=kotest&color=blue&logo=slack)](https://kotlinlang.slack.com/archives/CT0G9SD7Z)
