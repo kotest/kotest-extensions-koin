@@ -22,7 +22,6 @@ jobs:
                - jvmTest
                - jsTest
                - linuxX64Test
-               - linuxArm64TestKlibrary
       steps:
          -  uses: kotest/kotest-action@master
             with:
