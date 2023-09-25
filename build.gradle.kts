@@ -3,7 +3,7 @@ plugins {
    `java-library`
    `maven-publish`
    signing
-   kotlin("multiplatform") version "1.8.21"
+   kotlin("multiplatform") version "1.9.10"
 }
 
 repositories {
@@ -24,7 +24,7 @@ kotlin {
       jvm {
          compilations.all {
             kotlinOptions {
-               jvmTarget = "1.8"
+               jvmTarget = JavaVersion.VERSION_11.toString()
             }
          }
       }
@@ -34,10 +34,11 @@ kotlin {
          nodejs()
       }
 
+      // linuxArm64() // Can be added once Koin enables target
       linuxX64()
+
       mingwX64()
 
-      iosArm32()
       iosArm64()
       iosSimulatorArm64()
       iosX64()
@@ -49,11 +50,9 @@ kotlin {
       tvosSimulatorArm64()
       tvosX64()
 
-      watchosArm32()
       watchosArm64()
       watchosSimulatorArm64()
       watchosX64()
-      watchosX86()
    }
 
    sourceSets {
@@ -62,9 +61,7 @@ kotlin {
          dependencies {
             implementation(libs.kotest.framework.api)
             implementation(libs.koin.core)
-            // TODO: Check if we can switch to `libs.koin.test` below..
-            // Seems like a bug in Gradle where you can't use an exclude when using a version catalog reference
-            implementation("io.insert-koin:koin-test:3.4.3") {
+            implementation(libs.koin.test.get().let { "${it.module}:${it.versionConstraint.requiredVersion}" }) {
                exclude(group = "junit", module = "junit")
             }
          }
