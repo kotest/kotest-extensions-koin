@@ -45,9 +45,9 @@ jobs:
 #               - iosArm32TestKlibrary publishIosArm32PublicationToDeployRepository
                - tvosX64Test publishTvosX64PublicationToDeployRepository
                - tvosArm64TestKlibrary publishTvosArm64PublicationToDeployRepository
-               - watchosArm32TestKlibrary publishWatchosArm32PublicationToDeployRepository
+#               - watchosArm32TestKlibrary publishWatchosArm32PublicationToDeployRepository
                - watchosArm64TestKlibrary publishWatchosArm64PublicationToDeployRepository
-               - watchosX86Test publishWatchosX86PublicationToDeployRepository
+#               - watchosX86Test publishWatchosX86PublicationToDeployRepository
                - watchosX64Test publishWatchosX64PublicationToDeployRepository
                - watchosSimulatorArm64Test publishWatchosSimulatorArm64PublicationToDeployRepository
                - tvosSimulatorArm64Test publishTvosSimulatorArm64PublicationToDeployRepository
