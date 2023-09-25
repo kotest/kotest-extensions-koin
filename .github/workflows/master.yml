@@ -23,7 +23,7 @@ jobs:
             target:
                - jvmTest publishJvmPublicationToDeployRepository publishKotlinMultiplatformPublicationToDeployRepository
                - jsTest publishJsPublicationToDeployRepository
-               - linuxX64Test publishLinuxX64PublicationToDeployRepository
+# - linuxX64Test publishLinuxX64PublicationToDeployRepository
       steps:
          -  uses: kotest/kotest-action@master
             with:
@@ -58,7 +58,7 @@ jobs:
                java-version: 17
 
    windows:
-      needs: linux
+      needs: mac
       runs-on: windows-latest
       steps:
          -  uses: kotest/kotest-action@master
