@@ -59,8 +59,8 @@ jobs:
 #               - "publishWatchosArm32PublicationToDeployRepository"
                - "publishIosSimulatorArm64PublicationToDeployRepository"
                - "publishWatchosArm64PublicationToDeployRepository"
-#              - "publishWatchosX64PublicationToDeployRepository"
-               - "publishWatchosX86PublicationToDeployRepository"
+               - "publishWatchosX64PublicationToDeployRepository"
+#               - "publishWatchosX86PublicationToDeployRepository"
                - "publishWatchosSimulatorArm64PublicationToDeployRepository"
       steps:
          -  name: Checkout the repo
