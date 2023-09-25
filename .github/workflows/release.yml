@@ -42,6 +42,7 @@ jobs:
 
    macos:
       runs-on: macos-latest
+      needs: linux
       strategy:
          fail-fast: true
          max-parallel: 1
@@ -49,16 +50,16 @@ jobs:
             target:
                - "publishMacosX64PublicationToDeployRepository"
                - "publishMacosArm64PublicationToDeployRepository"
-               - "publishIosArm32PublicationToDeployRepository"
+#               - "publishIosArm32PublicationToDeployRepository"
                - "publishIosArm64PublicationToDeployRepository"
                - "publishIosX64PublicationToDeployRepository"
                - "publishTvosArm64PublicationToDeployRepository"
                - "publishTvosX64PublicationToDeployRepository"
                - "publishTvosSimulatorArm64PublicationToDeployRepository"
-               - "publishWatchosArm32PublicationToDeployRepository"
+#               - "publishWatchosArm32PublicationToDeployRepository"
                - "publishIosSimulatorArm64PublicationToDeployRepository"
                - "publishWatchosArm64PublicationToDeployRepository"
-               - "publishWatchosX64PublicationToDeployRepository"
+#              - "publishWatchosX64PublicationToDeployRepository"
                - "publishWatchosX86PublicationToDeployRepository"
                - "publishWatchosSimulatorArm64PublicationToDeployRepository"
       steps:
@@ -79,7 +80,7 @@ jobs:
 
    windows:
       runs-on: windows-latest
-
+      needs: macos
       steps:
          -  name: Checkout the repo
             uses: actions/checkout@v3
