@@ -26,7 +26,7 @@ jobs:
 
       steps:
          -  name: Checkout the repo
-            uses: actions/checkout@v3
+            uses: actions/checkout@v4
             with:
                fetch-depth: 0
                ref: ${{ github.event.inputs.branch }}
@@ -64,7 +64,7 @@ jobs:
                - "publishWatchosSimulatorArm64PublicationToDeployRepository"
       steps:
          -  name: Checkout the repo
-            uses: actions/checkout@v3
+            uses: actions/checkout@v4
             with:
                fetch-depth: 0
                ref: ${{ github.event.inputs.branch }}
@@ -83,7 +83,7 @@ jobs:
       needs: macos
       steps:
          -  name: Checkout the repo
-            uses: actions/checkout@v3
+            uses: actions/checkout@v4
             with:
                fetch-depth: 0
                ref: ${{ github.event.inputs.branch }}
