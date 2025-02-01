@@ -1,5 +1,7 @@
 # kotest-extension-koin
 
+**Migrated to the main kotest repo**
+
 Kotest extension for [Koin](https://insert-koin.io/).
 
 See [docs](https://kotest.io/docs/extensions/koin.html).
